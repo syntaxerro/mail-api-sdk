@@ -23,7 +23,7 @@ class SyntaxServer
     private $url = 'https://syntax-shell.me/smtp-api';
 
     /**
-     * SyntaxMail constructor.
+     * SyntaxServer constructor.
      * @param string $username  Full email address.
      * @param string $password  Password.
      */
