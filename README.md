@@ -1,4 +1,4 @@
-# PHP SDK for [syntax-shell.me](syntax-shell.me) mail server API
+# PHP SDK for [syntax-shell.me](https://syntax-shell.me) mail server API
 
 ### Installation
 ```
