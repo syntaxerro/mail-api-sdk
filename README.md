@@ -15,7 +15,7 @@ require __DIR__.'/src/SyntaxErro/SmtpBundle/SmtpException.php';
 /* Login using email address and password. */
 $server = new \SyntaxErro\SyntaxServer("smtp@sntx.ml", "smtp-api-sdk");
 
-/* Create new message to info@syntax-shell.me with content. */
+/* Create new message to recipient@example.com with content. */
 $message = new \SyntaxErro\SmtpBundle\SyntaxEmail("recipient@example.com", "Hello. I testing your API.");
 
 /* Set subject of message */
