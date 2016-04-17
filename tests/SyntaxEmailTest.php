@@ -46,6 +46,6 @@ class SyntaxEmailTest extends PHPUnit_Framework_TestCase
         $message = new \SyntaxErro\SmtpBundle\SyntaxEmail("Whatever.");
         foreach($testedAddresses as $testedAddress) $message->addRecipient($testedAddress);
         $this->assertTrue(is_array($message->getTo()), "Message recipients is not array.");
-        $this->assertEquals($testedAddresses, $message->getTo(), "Message recipients not contain addresses passed by construct.");
+        $this->assertEquals($testedAddresses, $message->getTo(), "Message recipients not contain addresses manually added.");
     }
 }
