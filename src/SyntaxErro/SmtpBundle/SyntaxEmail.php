@@ -11,7 +11,7 @@ class SyntaxEmail
     private $as;
 
     /**
-     * @var string
+     * @var array|string[]
      */
     private $to;
 
@@ -37,11 +37,12 @@ class SyntaxEmail
 
     /**
      * SyntaxEmail constructor.
-     * @param string $to    Recipient of message.
-     * @param string $content   Content of message.
+     * @param string $content Content of message.
+     * @param array|string $to
      */
-    public function __construct($to, $content)
+    public function __construct($content, $to = null)
     {
+        if($to !== null && !is_array($to)) $to = [$to];
         $this->to = $to;
         $this->content = $content;
     }
@@ -66,7 +67,7 @@ class SyntaxEmail
     }
 
     /**
-     * @return string
+     * @return null|array|string[]
      */
     public function getTo()
     {
@@ -74,13 +75,23 @@ class SyntaxEmail
     }
 
     /**
-     * @param string $to
+     * @param array $to
      * @return SyntaxEmail
      */
-    public function setTo($to)
+    public function setTo(array $to)
     {
         $this->to = $to;
 
+        return $this;
+    }
+
+    /**
+     * @param string $recipient
+     * @return SyntaxEmail
+     */
+    public function addRecipient($recipient)
+    {
+        if($this->to === null || !in_array($recipient, $this->to)) $this->to[] = $recipient;
         return $this;
     }
 

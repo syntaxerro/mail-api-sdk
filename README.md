@@ -5,6 +5,11 @@
 composer require syntaxerro/mail-api-sdk
 ```
 
+### Test
+```
+phpunit --bootstrap=vendor/autoload.php tests/ 
+```
+
 ### Usage
 ```php
 require __DIR__.'/src/SyntaxErro/SyntaxServer.php';
@@ -16,7 +21,7 @@ require __DIR__.'/src/SyntaxErro/SmtpBundle/SmtpException.php';
 $server = new \SyntaxErro\SyntaxServer("smtp@sntx.ml", "smtp-api-sdk");
 
 /* Create new message to recipient@example.com with content. */
-$message = new \SyntaxErro\SmtpBundle\SyntaxEmail("recipient@example.com", "Hello. I'm testing your API.");
+$message = new \SyntaxErro\SmtpBundle\SyntaxEmail("Hello. I'm testing your API.", "recipient@example.com");
 
 /* Set subject of message */
 $message->setSubject("It's a test message!");
@@ -29,4 +34,18 @@ $message->setAs("Darth Vader");
 
 /* Send message. */
 $server->send($message);
+```
+
+##### Multiple recipients
+```php
+$message = new \SyntaxErro\SmtpBundle\SyntaxEmail("Hello. I'm testing your API.", ["recipient@example.com", "other@recipient.com"]);
+```
+
+or
+
+```php
+$message = new \SyntaxErro\SmtpBundle\SyntaxEmail("Hello. I'm testing your API.");
+$message
+    ->addRecipient("recipient@example.com")
+    ->addRecipient("other@recipient.com");
 ```

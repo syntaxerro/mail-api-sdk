@@ -40,28 +40,31 @@ class SyntaxServer
      */
     public function send(SyntaxEmail $email)
     {
-        $post = [
-            'username' => $this->username,
-            'password' => $this->password,
-            'to' => $email->getTo(),
-            'body' => $email->getContent()
-        ];
+        if(!$email->getTo() || !count($email->getTo())) throw new SmtpException("Cannot send email with empty recipients.");
+        foreach($email->getTo() as $to) {
+            $post = [
+                'username' => $this->username,
+                'password' => $this->password,
+                'to' => $to,
+                'body' => $email->getContent()
+            ];
 
-        if($email->getAs() !== null) $post['as'] = $email->getAs();
-        if($email->getContentType() !== null) $post['content_type'] = $email->getContentType();
-        if($email->getReplyTo() !== null) $post['reply_to'] = $email->getReplyTo();
-        if($email->getSubject() !== null) $post['subject'] = $email->getSubject();
+            if($email->getAs() !== null) $post['as'] = $email->getAs();
+            if($email->getContentType() !== null) $post['content_type'] = $email->getContentType();
+            if($email->getReplyTo() !== null) $post['reply_to'] = $email->getReplyTo();
+            if($email->getSubject() !== null) $post['subject'] = $email->getSubject();
 
-        $opts['http'] = [
-            'method'  => 'POST',
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n".
-                         "User-Agent: Syntax SMTP PHP SDK",
-            'content' => http_build_query($post),
-            'ignore_errors' => true
-        ];
-        $context  = stream_context_create($opts);
-        $result = json_decode(file_get_contents($this->url, false, $context), JSON_OBJECT_AS_ARRAY);
-        if($result['status'] !== 200) throw new SmtpException($result['message']);
+            $opts['http'] = [
+                'method'  => 'POST',
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n".
+                    "User-Agent: Syntax SMTP PHP SDK",
+                'content' => http_build_query($post),
+                'ignore_errors' => true
+            ];
+            $context  = stream_context_create($opts);
+            $result = json_decode(file_get_contents($this->url, false, $context), JSON_OBJECT_AS_ARRAY);
+            if($result['status'] !== 200) throw new SmtpException($result['message']);
+        }
         return $this;
     }
 

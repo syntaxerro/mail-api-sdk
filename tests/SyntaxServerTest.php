@@ -22,7 +22,20 @@ class SyntaxServerTest extends PHPUnit_Framework_TestCase
     {
         $server = new \SyntaxErro\SyntaxServer("root@example.com", "secret_password");
 
-        $email = new \SyntaxErro\SmtpBundle\SyntaxEmail("whatever@example.com", "Test content.");
+        $email = new \SyntaxErro\SmtpBundle\SyntaxEmail("Test content.", "whatever@example.com");
         $server->send($email);
     }
+
+    /**
+     * @throws \SyntaxErro\SmtpBundle\SmtpException
+     * @expectedException \SyntaxErro\SmtpBundle\SmtpException
+     */
+    public function testSendMessageWithEmptyRecipients()
+    {
+        $server = new \SyntaxErro\SyntaxServer("root@example.com", "secret_password");
+
+        $email = new \SyntaxErro\SmtpBundle\SyntaxEmail("Test content.");
+        $server->send($email);
+    }
+
 }
