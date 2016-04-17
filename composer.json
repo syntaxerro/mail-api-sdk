@@ -3,7 +3,6 @@
     "description": "Simple PHP SDK for syntax-shell.me HTTP <=> SMTP|IMAP api",
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Syntax Error",
@@ -11,11 +10,21 @@
         }
     ],
 
+    "require": {
+      "php": ">=5.5.0"
+    },
+
     "require-dev": {
         "phpunit/phpunit": "^5.3"
     },
 
     "autoload": {
         "psr-4": { "": "./src" }
+    },
+
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.0-dev"
+      }
     }
 }
