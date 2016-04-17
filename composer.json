@@ -3,6 +3,7 @@
     "description": "Simple PHP SDK for syntax-shell.me HTTP <=> SMTP|IMAP api",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Syntax Error",
